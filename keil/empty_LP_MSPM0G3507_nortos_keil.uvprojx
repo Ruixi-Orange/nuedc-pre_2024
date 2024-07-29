@@ -547,6 +547,16 @@
               <FileType>5</FileType>
               <FilePath>..\Driver\servo.h</FilePath>
             </File>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\motor.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

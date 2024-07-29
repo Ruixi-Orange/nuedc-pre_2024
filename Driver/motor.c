@@ -38,33 +38,35 @@ int Velocity_B(int TargetVelocity, int CurrentVelocity)
 		return ControlVelocityB; //返回速度控制值
 }
 
-void Set_PWM(int pwma,int pwmb)
+void SetMotorPWM(int pwma,int pwmb)
 {
-	//在使用我司的D153C驱动模块的时候，PA12接AIN2、PA13解AIN1,PB16接BIN2、PB0接着BIN1
+	//PA12接AIN2,PA13接AIN1,PA14接PWMA
+	//PB15接BIN1,PB16接BIN2,PB17接PWMB
 	if(pwma>0) 
 	{
-		DL_GPIO_setPins(AIN1_PORT,AIN1_PIN_12_PIN);
-		DL_GPIO_clearPins(AIN2_PORT,AIN2_PIN_13_PIN);
-		DL_Timer_setCaptureCompareValue(PWM_0_INST,ABS(pwma),GPIO_PWM_0_C0_IDX);
+		DL_GPIO_setPins(AIN_PORT,AIN_AIN1_PIN);
+		DL_GPIO_clearPins(AIN_PORT,AIN_AIN2_PIN);
+		DL_TimerG_setCaptureCompareValue(PWM_MOTOR_A_INST,pwma,GPIO_PWM_MOTOR_A_C0_IDX);
 	}
 	else
 	{
-		DL_GPIO_setPins(AIN2_PORT,AIN2_PIN_13_PIN);
-		DL_GPIO_clearPins(AIN1_PORT,AIN1_PIN_12_PIN);
-		DL_Timer_setCaptureCompareValue(PWM_0_INST,ABS(pwma),GPIO_PWM_0_C0_IDX);
+		DL_GPIO_clearPins(AIN_PORT,AIN_AIN1_PIN);
+		DL_GPIO_setPins(AIN_PORT,AIN_AIN2_PIN);
+		DL_TimerG_setCaptureCompareValue(PWM_MOTOR_A_INST,-pwma,GPIO_PWM_MOTOR_A_C0_IDX);
 	}
-	if(pwmb>0)
+	
+	if(pwmb>0) 
 	{
-		DL_GPIO_setPins(BIN1_PORT,BIN1_Pin_Bin1_PIN);
-		DL_GPIO_clearPins(BIN2_PORT,BIN2_Pin_Bin2_PIN);
-		DL_Timer_setCaptureCompareValue(PWM_0_INST,ABS(pwmb),GPIO_PWM_0_C1_IDX);
+		DL_GPIO_setPins(BIN_PORT,BIN_BIN1_PIN);
+		DL_GPIO_clearPins(BIN_PORT,BIN_BIN2_PIN);
+		DL_TimerG_setCaptureCompareValue(PWM_MOTOR_B_INST,pwmb,GPIO_PWM_MOTOR_B_C0_IDX);
 	}
-    else
+	else
 	{
-		DL_GPIO_setPins(BIN2_PORT,BIN2_Pin_Bin2_PIN);
-		DL_GPIO_clearPins(BIN1_PORT,BIN1_Pin_Bin1_PIN);
-		DL_Timer_setCaptureCompareValue(PWM_0_INST,ABS(pwmb),GPIO_PWM_0_C1_IDX);
-	}		
+		DL_GPIO_clearPins(BIN_PORT,BIN_BIN1_PIN);
+		DL_GPIO_setPins(BIN_PORT,BIN_BIN2_PIN);
+		DL_TimerG_setCaptureCompareValue(PWM_MOTOR_B_INST,-pwmb,GPIO_PWM_MOTOR_B_C0_IDX);
+	}
 
 }
 

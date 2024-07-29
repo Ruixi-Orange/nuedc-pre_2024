@@ -29,21 +29,23 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+ 
 #include "ti_msp_dl_config.h"
 #include "board.h"
 #include "servo.h"
+#include "motor.h"
+
 int main(void)
 {
-  int i = 0;
     
   SYSCFG_DL_init();
-		
-	setDirection(-500);
-	delay_ms(500);
-	setDirection(500);
-	
+	delay_ms(0);
+	setDirection(0);
+	SetMotorPWM(2000,2000);
+	delay_ms(2000);
   while (1) 
   {
+		SetMotorPWM(0,0);
   }
 }
 
