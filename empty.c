@@ -29,34 +29,27 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "ti_msp_dl_config.h"
 #include "board.h"
-#include "stdio.h"
-
+#include "servo.h"
 int main(void)
 {
-	board_init();
+    int i = 0;
     
+    SYSCFG_DL_init();
+
     while (1) 
-    {                        
-        //LED引脚输出高电平
-        DL_GPIO_setPins(LED1_PORT, LED1_PIN_14_PIN);
-		printf("LED [ON]\r\n");
-        delay_ms(100);
-		
-        //LED引脚输出低电平
-        DL_GPIO_clearPins(LED1_PORT, LED1_PIN_14_PIN);
-		printf("LED [OFF]\r\n");
-        delay_ms(100);
+    {
+			setDirection(-500);
+			delay_ms(500);
+			setDirection(0);
+			delay_ms(500);
+			setDirection(500);
+			delay_ms(500);
+			setDirection(0);
+			delay_ms(500);
     }
 }
-
-
-
-
-
-
-
-
 
 
 

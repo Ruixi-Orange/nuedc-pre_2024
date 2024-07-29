@@ -72,7 +72,7 @@
           <BeforeMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>cmd.exe /C "$P../../tools/keil/syscfg.bat '$P' empty.syscfg"</UserProg1Name>
+            <UserProg1Name>cmd.exe /C "$P../tools/keil/syscfg.bat '$P' empty.syscfg"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -190,7 +190,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\BSP;..\..\MSPM0G3507_Project</IncludePath>
+              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\BSP;..\Driver;..\..\nuedc-pre_2024</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -538,24 +538,14 @@
           <GroupName>Driver</GroupName>
           <Files>
             <File>
-              <FileName>encoder.c</FileName>
+              <FileName>servo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Driver\encoder.c</FilePath>
+              <FilePath>..\Driver\servo.c</FilePath>
             </File>
             <File>
-              <FileName>encoder.h</FileName>
+              <FileName>servo.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Driver\encoder.h</FilePath>
-            </File>
-            <File>
-              <FileName>motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Driver\motor.h</FilePath>
+              <FilePath>..\Driver\servo.h</FilePath>
             </File>
           </Files>
         </Group>
