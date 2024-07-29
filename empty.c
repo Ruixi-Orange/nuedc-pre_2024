@@ -34,21 +34,17 @@
 #include "servo.h"
 int main(void)
 {
-    int i = 0;
+  int i = 0;
     
-    SYSCFG_DL_init();
-
-    while (1) 
-    {
-			setDirection(-500);
-			delay_ms(500);
-			setDirection(0);
-			delay_ms(500);
-			setDirection(500);
-			delay_ms(500);
-			setDirection(0);
-			delay_ms(500);
-    }
+  SYSCFG_DL_init();
+		
+	setDirection(-500);
+	delay_ms(500);
+	setDirection(500);
+	
+  while (1) 
+  {
+  }
 }
 
 
