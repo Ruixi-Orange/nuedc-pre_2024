@@ -1,19 +1,26 @@
 #include "motor.h"
-float Velcity_Kp=1.0,  Velcity_Ki=0.5,  Velcity_Kd; //相关速度PID参数
 
-int Velocity_A(int TargetVelocity, int CurrentVelocity)
+struct motorPID
+{
+float Kp;
+float Ki;
+float	Kd; //相关速度PID参数
+}Velcity = {1.0, 0.5, 0};
+
+int VelocityA(int TargetVelocity, int CurrentVelocity)
 {  
-    int Bias;  //定义相关变量
-		static int ControlVelocityA, Last_biasA; //静态变量，函数调用结束后其值依然存在
+    int Bias;
+		static int ControlVelocityA, LastBiasA; //静态变量，函数调用结束后其值依然存在
 		
 		Bias=TargetVelocity-CurrentVelocity; //求速度偏差
 		
-		ControlVelocityA+=Velcity_Ki*(Bias-Last_biasA)+Velcity_Kp*Bias;  //增量式PI控制器
+		ControlVelocityA+=Velcity.Ki*(Bias-LastBiasA)+Velcity.Kp*Bias;  //增量式PI控制器
                                                                    //Velcity_Kp*(Bias-Last_bias) 作用为限制加速度
 	                                                                 //Velcity_Ki*Bias             速度控制值由Bias不断积分得到 偏差越大加速度越大
-		Last_biasA=Bias;	
-	    if(ControlVelocityA>3600) ControlVelocityA=3600;
-	    else if(ControlVelocityA<-3600) ControlVelocityA=-3600;
+		LastBiasA=Bias;	
+	  
+		if(ControlVelocityA>8000) ControlVelocityA=8000;
+	  else if(ControlVelocityA<-8000) ControlVelocityA=-8000;
 		return ControlVelocityA; //返回速度控制值
 }
 
@@ -22,19 +29,20 @@ int Velocity_A(int TargetVelocity, int CurrentVelocity)
 入口参数：左右电机的编码器值
 返回值  ：电机的PWM
 ***************************************************************************/
-int Velocity_B(int TargetVelocity, int CurrentVelocity)
+int VelocityB(int TargetVelocity, int CurrentVelocity)
 {  
-    int Bias;  //定义相关变量
-		static int ControlVelocityB, Last_biasB; //静态变量，函数调用结束后其值依然存在
+    int Bias;
+		static int ControlVelocityB, LastBiasB; //静态变量，函数调用结束后其值依然存在
 		
 		Bias=TargetVelocity-CurrentVelocity; //求速度偏差
 		
-		ControlVelocityB+=Velcity_Ki*(Bias-Last_biasB)+Velcity_Kp*Bias;  //增量式PI控制器
+		ControlVelocityB+=Velcity.Ki*(Bias-LastBiasB)+Velcity.Kp*Bias;  //增量式PI控制器
                                                                    //Velcity_Kp*(Bias-Last_bias) 作用为限制加速度
 	                                                                 //Velcity_Ki*Bias             速度控制值由Bias不断积分得到 偏差越大加速度越大
-		Last_biasB=Bias;	
-	    if(ControlVelocityB>3600) ControlVelocityB=3600;
-	    else if(ControlVelocityB<-3600) ControlVelocityB=-3600;
+		LastBiasB=Bias;	
+	  
+		if(ControlVelocityB>8000) ControlVelocityB=8000;
+	  else if(ControlVelocityB<-8000) ControlVelocityB=-8000;
 		return ControlVelocityB; //返回速度控制值
 }
 
@@ -42,6 +50,13 @@ void SetMotorPWM(int pwma,int pwmb)
 {
 	//PA12接AIN2,PA13接AIN1,PA14接PWMA
 	//PB15接BIN1,PB16接BIN2,PB17接PWMB
+	
+	if(pwma>8000)	pwma=8000;
+	else if(pwma<-8000)	pwma=-8000;
+	
+	if(pwmb>8000) pwmb=8000;
+	else if(pwmb<-8000)	pwmb=-8000;
+	
 	if(pwma>0) 
 	{
 		DL_GPIO_setPins(AIN_PORT,AIN_AIN1_PIN);
